@@ -20,7 +20,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/iron-pages/iron-pages.html">
 <link rel="import" href="../bower_components/iron-selector/iron-selector.html">
 <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
-<link rel="import" href="../bower_components/paper-fab">
+<link rel="import" href="../bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="my-icons.html">
 
 <link rel="lazy-import" href="my-view1.html">
@@ -92,8 +92,26 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           margin-top: 0%;
         }
       }
+      @keyframes disappear {
+        from {
+          opacity: 1;
+        }
 
+        to {
+          opacity: 0;
+        }
+      }
 
+      .burger-menu {
+        position: fixed;
+        right: 5px;
+        bottom: 89%;
+        font-size: 20px;
+        background-color: inherit;
+        z-index: 99;
+        color: white;
+        animation: disappear 0.5s;
+      }
 
       app-drawer-layout:not([narrow]) [drawer-toggle] {
         display: none;
@@ -133,11 +151,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         data="{{routeData}}"
         tail="{{subroute}}"></app-route>
 
-    <paper-fab icon="favorite" title="heart"></paper-fab>
     <app-drawer-layout fullbleed>
       <!-- Drawer content -->
       <app-drawer id="drawer" slot="drawer" drawer-toggle transition-duration="600" swipe-open="true">
         <app-toolbar>Menu</app-toolbar>
+        <paper-icon-button class="burger-menu" icon="my-icons:menu" drawer-toggle></paper-icon-button>
+
         <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
           <a name="view1" href="view1">View One</a>
           <a name="view2" href="view2">View Two</a>
@@ -150,7 +169,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
         <app-header slot="header" condenses reveals effects="waterfall">
           <app-toolbar>
-            <paper-icon-button icon="my-icons:menu" drawer-toggle></paper-icon-button>
             <div main-title>My App</div>
           </app-toolbar>
         </app-header>
@@ -199,6 +217,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         // Get root pattern for app-route, for more info about `rootPath` see:
         // https://www.polymer-project.org/2.0/docs/upgrade#urls-in-templates
         this.rootPattern = (new URL(this.rootPath)).pathname;
+      }
+
+      toggleDrawer() {
+          return
       }
 
       _routePageChanged(page) {
