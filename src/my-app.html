@@ -58,6 +58,33 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         --app-drawer-scrim-background: #8bf1ad;
       }
 
+      my-view1 {
+        animation: slidein 0.6s;
+      }
+
+      /*@keyframes slidein {
+        from {
+          margin-left: 100%;
+          width: 300%;
+        }
+
+        to {
+          margin-left: 0%;
+          width: 100%;
+        }
+      }*/
+      @keyframes slidein {
+        from {
+          margin-top: -100%;
+        }
+
+        to {
+          margin-top: 0%;
+        }
+      }
+
+
+
       app-drawer-layout:not([narrow]) [drawer-toggle] {
         display: none;
       }
