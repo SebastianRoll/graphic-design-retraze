@@ -20,6 +20,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/iron-pages/iron-pages.html">
 <link rel="import" href="../bower_components/iron-selector/iron-selector.html">
 <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../bower_components/paper-fab">
 <link rel="import" href="my-icons.html">
 
 <link rel="lazy-import" href="my-view1.html">
@@ -47,19 +48,28 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           right: 0;
           left: auto;
 
-          clip-path: polygon(100% 50%, 0% 100%, 100% 100%);
-          webkit-transform: translate3d(0, 30%, 0);
-          transform: translate3d(0, 30%, 0);
+          clip-path: polygon(100% 00%, -40% 100%, 100% 100%);
+          webkit-transform: translate3d(0, 75%, 0);
+          transform: translate3d(0, 75%, 0);
 
           color: white;
           background: #0f28c1;
         };
-        --app-drawer-width: 330px;
+        --app-drawer-width: 100%;
         --app-drawer-scrim-background: #8bf1ad;
+
       }
 
-      my-view1 {
+      [pressed-animation] {
+        transform: scale(0.2, 0.9);
+      }
+
+      .view {
         animation: slidein 0.6s;
+      }
+
+      my-view2 {
+        transition: transform 5.5s cubic-bezier(.4, 0, .2, 1);
       }
 
       /*@keyframes slidein {
@@ -123,6 +133,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         data="{{routeData}}"
         tail="{{subroute}}"></app-route>
 
+    <paper-fab icon="favorite" title="heart"></paper-fab>
     <app-drawer-layout fullbleed>
       <!-- Drawer content -->
       <app-drawer id="drawer" slot="drawer" drawer-toggle transition-duration="600" swipe-open="true">
@@ -149,10 +160,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             attr-for-selected="name"
             fallback-selection="view404"
             role="main">
-          <my-view1 name="view1"></my-view1>
-          <my-view2 name="view2"></my-view2>
-          <my-view3 name="view3"></my-view3>
-          <my-view404 name="view404"></my-view404>
+          <my-view1 id="view1" class="view" name="view1"></my-view1>
+          <my-view2 id="view2" class="view" name="view2"></my-view2>
+          <my-view3 id="view3" class="view" name="view3"></my-view3>
+          <my-view404 id="view404" class="view" name="view404"></my-view404>
         </iron-pages>
       </app-header-layout>
     </app-drawer-layout>
@@ -205,6 +216,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         if (!this.$.drawer.persistent) {
           this.$.drawer.close();
         }
+
+
+        /*var currentPage = this.shadowRoot.querySelector("#"+page);
+        if (currentPage.hasAttribute('pressed-animation')) {
+            currentPage.removeAttribute('pressed-animation');
+        } else {
+            currentPage.setAttribute('pressed-animation', '');
+        }*/
       }
 
       _pageChanged(page) {
@@ -212,9 +231,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         var resolvedPageUrl = this.resolveUrl('my-' + page + '.html');
         Polymer.importHref(
             resolvedPageUrl,
-            null,
+            this.onLoad.bind(this),
             this._showPage404.bind(this),
             true);
+      }
+
+      onLoad(loadEvent) {
+          return
       }
 
       _showPage404() {
