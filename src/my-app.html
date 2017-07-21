@@ -60,6 +60,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       }
 
+      .header-logo {
+        height: 50px;
+      }
+
       [pressed-animation] {
         transform: scale(0.2, 0.9);
       }
@@ -104,6 +108,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       app-drawer-layout:not([narrow]) [drawer-toggle] {
         display: none;
+      }
+
+      app-toolbar {
+        justify-content: center;
       }
 
       app-header {
@@ -158,7 +166,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
         <app-header slot="header" condenses reveals effects="waterfall">
           <app-toolbar>
-            <div main-title>My App</div>
+            <!--<div main-title>My App</div>-->
+            <img class="header-logo" src="../images/white.png">
           </app-toolbar>
         </app-header>
 
